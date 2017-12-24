@@ -21,9 +21,10 @@ class Auth extends BaseController
         $remember = $this->request->post('remember');
 
         $logged = $this->gatekeeper->login($email, $password, $remember);
-
-        switch ($logged) {
-
+        if (true === $logged) {
+            $msg = 'Witaj, '.$this->gatekeeper->getUser()->username.'|success';
+        } else {
+            switch ($logged) {
             case Authentication::LOGIN_INCORRECT:
               $msg = 'Nieprawidłowy login lub hasło!|danger';
             break;
@@ -36,14 +37,11 @@ class Auth extends BaseController
             case Authentication::LOGIN_LOCKED:
               $msg = 'Konto czasowo zablokowane!|danger';
             break;
-            case true:
-              $this->session->removeFlash('msg');
-              $msg = 'Witaj, '.$this->gatekeeper->getUser()->username.'|success';
-            break;
             default:
-            // $msg = 'Witaj, '.$this->gatekeeper->getUser()->username.'|success';
+              $msg = 'Wystąpił nieznany błąc!|danger';
             break;
-            }
+          }
+        }
         $this->session->putFlash('msg', $msg);
 
         return $this->redirectResponse('/');
