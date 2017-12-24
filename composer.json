@@ -1,0 +1,42 @@
+{
+	"name": "MicPec/EasySEZ",
+	"description": "EasySEZ",
+	"keywords": [
+		"EasySEZ"
+	],
+
+	"license": "GPL-3-Clause",
+	"authors": [
+		{
+			"name": "Michal Pecyna",
+			"email": "michal.pecyna@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"app\\": "app"
+		}
+	},
+	"require": {
+		"php": ">=7.0.0",
+		"mako/framework": "dev-master",
+		"mako/repl": "dev-master",
+		"mako/toolbar": "dev-master"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"extra": {
+		"branch-alias": {
+			 "dev-master": "dev-master"
+		}
+	},
+	"suggest": {
+		"mako/repl": "A runtime developer console, interactive debugger and REPL for the Mako framework",
+		"mako/toolbar": "A debug toolbar for the Mako framework"
+	},
+	"scripts": {
+		"post-create-project-cmd": [
+			"php app/reactor app.generate_secret"
+		]
+	}
+}

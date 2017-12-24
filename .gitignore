@@ -1,0 +1,9 @@
+.DS_Store
+.php_cs.cache
+composer.phar
+composer.lock
+/vendor
+/node_modules
+npm-debug.log
+testbase.sql
+EasySEZ_db_config.txt
