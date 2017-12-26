@@ -112,7 +112,7 @@ class Orders extends BaseController
     {
         $order = new Order();
         $order->assign($this->request->post());
-        $order->status_id = Status::where('state_id','=', '1')->first()->id;
+        $order->status_id = Status::where('state_id', '=', '1')->first()->id;
         $order->date = date('Y-m-d H:i:s');
         $order->price = $this->request->post('price') ? $this->request->post('price') : null;
         $order->deadline = $this->request->post('deadline') ? $this->request->post('deadline') : null;

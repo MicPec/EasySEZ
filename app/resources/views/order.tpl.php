@@ -18,6 +18,7 @@
 				<form class="form-horizontal" role="form" method="post" action="{{ isset($order) ? $urlBuilder->to("/order/$order->id") : $urlBuilder->to('/order/create') }}" data-toggle="validator">
 					<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
 					<input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
+					<input type="hidden" name="uprice" value="{{ $order->product->unitprice ?? null }}">
 
 					<div class="col-md-6 col-sm-12">
 						<div class="form-group">
@@ -26,12 +27,12 @@
 							</div>
 							<div class="col-sm-10">
 								<select class="ajaxselect form-control" data-ajax--url="/api/getClients" data-dropdown-parent="" id="client" name="client_id" placeholder="Wybierz klienta" required>
-                                    {% if(isset($order)) %}
-                                    <option value='{{ $order->client->id ?? null }}'>{{ $order->client->sname ?? null }} {{ $order->client->fname ?? null }} ({{ $order->client->company ?? null }})</option>
-                                    {% else %}
-                                    <option></option>
-                                    {% endif %}
-                                </select>
+						        {% if(isset($order)) %}
+						        <option value='{{ $order->client->id ?? null }}'>{{ $order->client->sname ?? null }} {{ $order->client->fname ?? null }} ({{ $order->client->company ?? null }})</option>
+						        {% else %}
+						        <option></option>
+						        {% endif %}
+						    </select>
 							</div>
 						</div>
 
@@ -41,12 +42,12 @@
 							</div>
 							<div class="col-sm-10">
 								<select class="ajaxselect form-control" data-ajax--url="/api/getProducts" data-dropdown-parent="" id="product" name="product_id" required>
-                                    {% if(isset($order)) %}
-                                    <option value='{{ $order->product->id ?? null }}' data-uprice="{{ $order->product->unitprice ?? null }}">{{ $order->product->name ?? null }} ({{$order->product->unit->name ?? null }})</option>
-                                    {% else %}
-                                    <option></option>
-                                    {% endif %}
-                                </select>
+                  {% if(isset($order)) %}
+                  <option value='{{ $order->product->id ?? null }}' data-uprice="{{ $order->product->unitprice ?? null }}">{{ $order->product->name ?? null }} ({{$order->product->unit->name ?? null }})</option>
+                  {% else %}
+                  <option></option>
+                  {% endif %}
+                </select>
 							</div>
 						</div>
 
@@ -65,8 +66,8 @@
 								<label for="price" class="control-label">Cena</label>
 							</div>
 							<div class="col-sm-10">
-								<input type="text" pattern="([0-9]*[.])?[0-9]+" autocomplete="off" class="form-control" id="price" name="price" placeholder="Wprowadź cenę" value='{{ $order->price ?? "" }}' data-error="Wprowadź prawidłową wartość!"> {#
-								<p id="uprice">Sugerowana cena: {{round($order->product->unitprice*$order->qty,2)}}</p>#}
+								<input type="text" pattern="([0-9]*[.])?[0-9]+" autocomplete="off" class="form-control" id="price" name="price" placeholder="Sugerowana cena: {{ isset($order) ? round($order->product->unitprice*$order->qty,2): null }}" value='{{ $order->price ?? "" }}' data-error="Wprowadź prawidłową wartość!">
+								{#<p id="uprice"></p>#}
 								<div class="help-block with-errors"></div>
 							</div>
 						</div>

@@ -5,7 +5,7 @@ $(function() {
     $(".app-container").toggleClass("expanded")
   };
 
-  initselect2();
+  initselect2($('.ajaxselect'), []);
 
   $('#color').colorpicker({
     useAlpha: false,
@@ -86,9 +86,10 @@ $(function() {
 
   $('input#qty, select#product').on('change', function(e) {
     var qty = $('input#qty').val();
-    var uprice = $('select#product option:selected').data('uprice');
-    $('p#uprice').text('Sugerowana cena: ' + (qty * uprice).toFixed(2));
-
+    // var uprice = $('select#product option:selected').data('uprice');
+    var uprice = $('input[name=uprice]').val();
+    // $('p#uprice').text('Sugerowana cena: ' + (qty * uprice).toFixed(2));
+    $('input[name=price]').attr('placeholder', 'Sugerowana cena: ' + (qty * uprice).toFixed(2));
   });
 
   window.setTimeout(function() {
@@ -129,8 +130,8 @@ $(function() {
   };
 
 
-  function initselect2() {
-    $('.ajaxselect').select2({
+  function initselect2(select, options) {
+    select.select2({
       width: "100%",
       theme: "bootstrap",
       language: "pl",
@@ -149,6 +150,7 @@ $(function() {
         },
         processResults: function(data, params) {
           params.page = params.page || 1;
+          options = data.items;
           return {
             results: data.items,
             pagination: {
@@ -157,8 +159,29 @@ $(function() {
           }
         }
       },
-    })
+      // formatSelection: formatItem,
+      // templateResult: formatItem,
+      // escapeMarkup: function(markup) {
+      //   return markup;
+      // },
+    });
+    select.on("select2:select", function(e) {
+      var id = $(this).val();
+      var result = $.grep(options, function(e) {
+        return e.id == id;
+      });
+      if (result.length != 0) {
+        $("input[name=uprice]").val(result[0].uprice);
+      }
+    });
   };
+
+  // function formatItem(item) {
+  //   console.log(item)
+  //   if (item.loading) return item.name || item.text;
+  //   var markup = '<div class="clearfix" data-uprice=' + item.uprice + '>' + item.text + '</div>';
+  //   return markup;
+  // }
 
   $(function() {
     setInterval(function() {
