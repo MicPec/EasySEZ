@@ -38,7 +38,7 @@ class Auth extends BaseController
               $msg = 'Konto czasowo zablokowane!|danger';
             break;
             default:
-              $msg = 'Wystąpił nieznany błąc!|danger';
+              $msg = 'Wystąpił nieznany błąd!|danger';
             break;
           }
         }
