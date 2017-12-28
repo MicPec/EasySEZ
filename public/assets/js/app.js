@@ -5,7 +5,7 @@ $(function() {
     $(".app-container").toggleClass("expanded")
   };
 
-  initselect2($('.ajaxselect'), []);
+  initselect2([]);
 
   $('#color').colorpicker({
     useAlpha: false,
@@ -76,14 +76,6 @@ $(function() {
     $('#modal').modal();
   });
 
-  // $('.confirm').on('click', function(e) {
-  //   var button = $(e.currentTarget); // Button that triggered the modal
-  //   var order = button.data('order');
-  //   var flag = button.data('flag');
-  //   var modal = $('.modal-content').load('/api/removeFlagModal/' + order + '/' + flag);
-  //   $('#modal').modal();
-  // });
-
   $('input#qty, select#product').on('change', function(e) {
     var qty = $('input#qty').val();
     // var uprice = $('select#product option:selected').data('uprice');
@@ -130,8 +122,8 @@ $(function() {
   };
 
 
-  function initselect2(select, options) {
-    select.select2({
+  function initselect2(options) {
+    $('.ajaxselect').select2({
       width: "100%",
       theme: "bootstrap",
       language: "pl",
@@ -165,13 +157,14 @@ $(function() {
       //   return markup;
       // },
     });
-    select.on("select2:select", function(e) {
+    $('.ajaxselect').on("select2:select", function(e) {
       var id = $(this).val();
       var result = $.grep(options, function(e) {
         return e.id == id;
       });
       if (result.length != 0) {
         $("input[name=uprice]").val(result[0].uprice);
+        $("select#product").trigger('change');
       }
     });
   };
