@@ -29,7 +29,7 @@
                                 <!-- <td>{{ $flag->id }}</td> -->
                                 <td data-label="Nazwa">{{ $flag->name }}</td>
                                 <td data-label="Kolor" class='text-center' style="background-color: {{ $flag->color }}; color: white;">{{ $flag->color }}</td>
-                                <td data-label="" class="text-right"><a class="btn btn-info btn-xs" href="{{$urlBuilder->to("/flag/$flag->id")}}"><span class="glyphicon glyphicon-edit"></span></a>
+                                <td data-label="" class="text-right"><a class="btn btn-info btn-xs" href="{{$urlBuilder->to("/flag/$flag->id")}}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
                                   <a class="confirm btn btn-danger btn-xs" href="#" data-val1="{{ $flag->id }}" data-link="/api/flagDeleteModal" data-toggle="tooltip" title="Usuń"><span class="fa fa-times"></span></a>
                                 </td>
                             </tr>

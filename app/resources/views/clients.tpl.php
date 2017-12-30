@@ -64,7 +64,7 @@
                                     <td class="hidden-md hidden-sm ellipsis" data-label="Strona www"><a href="{{ $client->website ?? null }}" target="_blank">{{ $client->website ?? null }} &nbsp;</a></td>
                                     <td data-label="" class="text-right">
                                         <a class="btn btn-success btn-xs" href="{{ $urlBuilder->to('/orders', ['client'=>$client->id ?? null]) }}"><span class="glyphicon glyphicon-list"></span> Zlecenia <span class="badge">{{$client->ordersCount}}</span></a>
-                                        <a class="btn btn-info btn-xs" href="{{ $urlBuilder->to('/client/'.$client->id ?? null) }}"><span class="glyphicon glyphicon-edit" alt="Edytuj"></span></a>
+                                        <a class="btn btn-info btn-xs" href="{{ $urlBuilder->to('/client/'.$client->id ?? null) }}"><span class="glyphicon glyphicon-edit" alt="Edytuj" data-toggle="tooltip" title="Edytuj"></span></a>
                                         <a class="confirm btn btn-danger btn-xs" href="#" data-val1="{{ $client->id ?? null }}" data-link="/api/clientDeleteModal" data-toggle="tooltip" title="Usuń"><span class="fa fa-times"></span></a>
                                     </td>
                                 </tr>

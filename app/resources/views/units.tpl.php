@@ -26,7 +26,7 @@
                             {% foreach ($units as $unit) %}
                                 <tr>
                                     <td data-label="Jednostka">{{ $unit->name }}</td>
-                                    <td data-label="" class="text-right"><a class="btn btn-info btn-xs" href="{{ $urlBuilder->to("/unit/$unit->id") }}"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <td data-label="" class="text-right"><a class="btn btn-info btn-xs" href="{{ $urlBuilder->to("/unit/$unit->id") }}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
                                       <a class="confirm btn btn-danger btn-xs" href="#" data-val1="{{ $unit->id }}" data-link="/api/unitDeleteModal" data-toggle="tooltip" title="Usuń"><span class="fa fa-times"></span></a>
                                     </td>
                                 </tr>

@@ -7,7 +7,7 @@
 	<div class="col-sm-12">
 
 		<div class="row no-margin">
-			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration="1s" data-wow-delay=".0s">
+			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration=".5s" data-wow-delay=".0s">
 				<div class="panel panel-blue">
 					<div class="panel-heading">
 						<div class="row">
@@ -29,7 +29,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration="1s" data-wow-delay=".2s">
+			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration=".5s" data-wow-delay=".2s">
 				<div class="panel panel-green">
 					<div class="panel-heading">
 						<div class="row">
@@ -51,7 +51,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration="1s" data-wow-delay=".4s">
+			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration=".5s" data-wow-delay=".4s">
 				<div class="panel panel-yellow">
 					<div class="panel-heading">
 						<div class="row">
@@ -73,7 +73,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration="1s" data-wow-delay=".6s">
+			<div class="col-lg-3 col-sm-6 col-xs-12 wow bounceInRight" data-wow-duration=".5s" data-wow-delay=".6s">
 				<div class="panel panel-red">
 					<div class="panel-heading">
 						<div class="row">
@@ -196,7 +196,7 @@
 						</div>
 					</div>
 				</check>
-			
+
 		</div>
 
 		#}

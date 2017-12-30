@@ -108,7 +108,7 @@
 									&nbsp;
 								</td>
 								<td>
-									<a class="btn btn-info btn-xs statusModal" id="statusModal" style="width: 100%" _data-toggle="modal" _data-target="#Modal" data-order="{{ $order->id }}" data-status="{{ $order->status->id??null }}">{{ $order->status->name??'###' }}</a>
+									<a class="btn btn-info btn-xs statusModal" id="statusModal" style="width: 100%" data-order="{{ $order->id }}" data-status="{{ $order->status->id??null }}" data-toggle="tooltip" title="Zmień status">{{ $order->status->name??'###' }}</a>
 								</td>
 								<td class="text-right" style="min-width:100px;">
 									<a class="btn btn-default btn-xs" title="Hitoria zlecenia" href="{{$urlBuilder->to("/order/$order->id/statuslog")}}"><span class="glyphicon glyphicon-th-list"></span></a>
