@@ -13,7 +13,7 @@
 
 			<div class="panel-body">
 
-				<form class="form-horizontal" role="form" method="post" action="{{isset($user)?$urlBuilder->to("/user/$user->id"):$urlBuilder->to('/user/create')}}" data-toggle="validator">
+				<form class="form-horizontal" role="form" method="post" action="{{ isset($user)?$urlBuilder->to("/user/$user->id"):$urlBuilder->to('/user/create') }}" data-toggle="validator">
 					<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
 					<input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
 
@@ -32,10 +32,11 @@
 							<label for="email" class="control-label">E-mail</label>
 						</div>
 						<div class="col-sm-10">
-							<input type="text" maxlength="255" class="form-control" id="email" name="email" placeholder="E-mail" value='{{isset($user)?$user->email:null}}'>
+							<input type="text" maxlength="255" class="form-control" id="email" name="email" placeholder="E-mail" value='{{isset($user)?$user->email:null}}' required="required">
 						</div>
 					</div>
 
+					{%if ($gatekeeper->getUser()->isMemberOf('admin'))%}
 					<div class="form-group">
 						<div class="col-sm-2">
 							<label for="group" class="control-label">Grupa</label>
@@ -50,6 +51,7 @@
 								</select>
 						</div>
 					</div>
+					{%endif%}
 
 					<div class="form-group">
 						<div class="col-sm-10 col-sm-offset-2 text-right">

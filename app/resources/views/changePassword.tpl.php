@@ -17,7 +17,7 @@
 					<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
 					<input type="hidden" name="csrf_token" value="{{ $session->generateOneTimeToken() }}">
 
-					{%if (!$gatekeeper->getUser()->isMemberOf('admin')) %}
+					{%if (!$user->getPassword()=='' && !$gatekeeper->getUser()->isMemberOf('admin') ) %}
 					<div class="form-group">
 						<div class="col-sm-2">
 							<label for="oldpass" class="control-label">Stare hasło</label>

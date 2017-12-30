@@ -73,7 +73,7 @@
                             <h4 class="username">{{ $gatekeeper->getUser()->username }}</h4>
                             <small>{{ $gatekeeper->getUser()->email }}</small>
                             <div class="btn-group-vertical margin-bottom-2x" role="group">
-                                <a type="button" class="btn btn-default" href="/user/{{ $gatekeeper->getUser()->id }}"><i class="fa fa-user"></i> Profil</a>
+                                <a type="button" class="btn btn-default" href="/user/profile"><i class="fa fa-user"></i> Profil</a>
                                 <a type="button" class="btn btn-default" href="/logout"><i class="fa fa-sign-out"></i> Wyloguj</a>
                             </div>
                         </div>

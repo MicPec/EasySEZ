@@ -58,7 +58,7 @@ class Units extends BaseController
         $unit->assign($this->request->post());
         $unit->save();
 
-        $this->session->putFlash('msg', 'Utworzono jednostkę #'.$unit->name.'|success');
+        $this->session->putFlash('msg', 'Utworzono jednostkę '.$unit->name.'|success');
 
         return $this->back();
     }

@@ -4,6 +4,8 @@ $routes->group(['namespace' => 'app\controllers'], function ($routes) {
     $routes->get('/login', 'Auth::showLogin');
     $routes->post('/login', 'Auth::login');
     $routes->get('/logout', 'Auth::logout');
+    $routes->get('/user/activate/{token}', 'Users::activate')->when(['token' => '[0-9a-fA-F]+']);
+
 });
 
 $routes->group(['namespace' => 'app\controllers', 'middleware' => ['setLinkBack', 'checkLogin']], function ($routes) {
@@ -42,10 +44,10 @@ $routes->group(['namespace' => 'app\controllers', 'middleware' => ['setLinkBack'
     $routes->post('/status/delete', 'Statuses::delete')->middleware('csrf')->middleware('adminAccess');
 
     $routes->get('/units', 'Units::show', 'units');
-    $routes->get('/unit/create', 'Units::new')->middleware('adminAccess');
-    $routes->put('/unit/create', 'Units::create')->middleware('adminAccess');
-    $routes->get('/unit/{id}', 'Units::get')->when(['id' => '[0-9]+'])->middleware('adminAccess');
-    $routes->put('/unit/{id}', 'Units::update')->when(['id' => '[0-9]+'])->middleware('csrf')->middleware('adminAccess');
+    $routes->get('/unit/create', 'Units::new');
+    $routes->put('/unit/create', 'Units::create');
+    $routes->get('/unit/{id}', 'Units::get');
+    $routes->put('/unit/{id}', 'Units::update')->when(['id' => '[0-9]+'])->middleware('csrf');
     $routes->post('/unit/delete', 'Units::delete')->middleware('csrf')->middleware('adminAccess');
 
     $routes->get('/flags', 'Flags::show', 'flags');
@@ -56,8 +58,11 @@ $routes->group(['namespace' => 'app\controllers', 'middleware' => ['setLinkBack'
     $routes->post('/flag/delete', 'Flags::delete')->middleware('csrf')->middleware('adminAccess');
 
     $routes->get('/users', 'Users::show', 'users')->middleware('adminAccess');
+    $routes->get('/user/create', 'Users::new')->middleware('adminAccess');
+    $routes->put('/user/create', 'Users::create')->middleware('adminAccess');
     $routes->get('/user/{id}', 'Users::get')->when(['id' => '[0-9]+'])->middleware('adminAccess');
-    $routes->put('/user/{id}', 'Users::update')->when(['id' => '[0-9]+'])->middleware('csrf')->middleware('adminAccess');
+    $routes->get('/user/profile', 'Users::profile');
+    $routes->put('/user/{id}', 'Users::update')->when(['id' => '[0-9]+'])->middleware('csrf');
     $routes->get('/user/{id}/changepassword', 'Users::changePassword')->when(['id' => '[0-9]+']);
     $routes->put('/user/{id}/changepassword', 'Users::updatePassword')->when(['id' => '[0-9]+'])->middleware('csrf');
     $routes->post('/user/ban', 'Users::ban')->middleware('csrf')->middleware('adminAccess');

@@ -7,6 +7,8 @@ use mako\gatekeeper\entities\user\User as authUser;
 
 class User extends authUser
 {
+    protected $assignable = ['username', 'email'];
+
     public function statusLog()
     {
         return $this->hasMany(StatusLog::class)->ascending('date');

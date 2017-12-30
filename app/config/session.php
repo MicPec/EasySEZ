@@ -34,7 +34,7 @@ return
 
     'ttl' => [
         'data' => 1800,
-        'cookie' => 0,
+        'cookie' => 3600,
     ],
 
     /*

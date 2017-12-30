@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
-use mako\view\ViewFactory;
 use app\models\User;
-use mako\security\Password;
 use mako\gatekeeper\entities\group\Group;
+use mako\security\Password;
+use mako\view\ViewFactory;
 
 class Users extends BaseController
 {
@@ -37,15 +37,25 @@ class Users extends BaseController
         return $view->assign('user', $user)->render('user');
     }
 
-    public function update(ViewFactory $view, $id)
+    public function profile(ViewFactory $view)
     {
-        $user = User::get($id);
-        $user->username = $this->request->post('username');
-        $user->email = $this->request->post('email');
-        // $product->unit_id = $this->request->post('unit');
+        $user = User::get($this->gatekeeper->getUser()->id);
+
+        return $view->assign('user', $user)->render('user');
+    }
+
+    public function new(ViewFactory $view)
+    {
+        return $view->render('user');
+    }
+
+    public function create(ViewFactory $view)
+    {
+        $user = new User();
+        $user->assign($this->request->post());
+        $token = $user->generateAccessToken();
         $user->save();
 
-        $user = User::get($id);
         $groups = Group::all();
         foreach ($groups as $group) {
             $group->removeUser($user);
@@ -53,8 +63,58 @@ class Users extends BaseController
                 $group->addUser($user);
             }
         }
+        $msg = "Witaj $user->username\nAby aktywować konto kliknij poniższy link\n<br><a href='".$this->urlBuilder->to("/user/activate/$token")."'>Aktywacja</a>";
 
-        $this->session->putFlash('msg', 'Zaktualizowano dane użytkownika #'.$user->username.'|success');
+        $this->sendEmail($user->getEmail(), 'Aktywacja konta EasySEZ', $msg);
+
+        $this->session->putFlash('msg', 'Utworzono użytkownika "'.$user->username.'"|success');
+
+        return $this->back();
+    }
+
+    public function activate($token)
+    {
+        $user = User::where('access_token', '=', $token)->first();
+        if ($user) {
+            $user->activate();
+            $user->save();
+            $this->gatekeeper->forceLogin($user->email);
+
+            return $this->changePassword($this->view, $user->id);
+        } else {
+            return $this->redirectResponse('/');
+        }
+    }
+
+    private function sendEmail(string $email, string $subject, string $message): bool
+    {
+        $headers = 'From: '.APP_NAME."\r\n";
+        $headers .= "Reply-To: noreply@localhost\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+        return mail($email, $subject, $message, $headers);
+    }
+
+    public function update(ViewFactory $view, int $id)
+    {
+        $user = User::get($id);
+        $user->username = $this->request->post('username');
+        $user->email = $this->request->post('email');
+        $user->save();
+
+        $user = User::get($id);
+        $groups = Group::all();
+        if ($this->gatekeeper->getUser()->isMemberOf('admin')) {
+            foreach ($groups as $group) {
+                $group->removeUser($user);
+                if ($group->id == $this->request->post('group_id')) {
+                    $group->addUser($user);
+                }
+            }
+        }
+
+        $this->session->putFlash('msg', 'Zaktualizowano dane użytkownika '.$user->username.'|success');
 
         return $this->back();
     }
@@ -69,8 +129,12 @@ class Users extends BaseController
     public function updatePassword(ViewFactory $view, $id)
     {
         $user = User::get($id);
-        if (Password::validate($this->request->post('oldpass'), $user->getPassword())
-        || $this->gatekeeper->getUser()->isMemberOf('admin')) { //dont check oldpass if admin is logged in
+        if ($this->gatekeeper->getUser()->isMemberOf('admin')
+        || '' == $user->getPassword()) {
+            $user->setPassword($this->request->post('newpass'));
+            $user->save();
+            $this->session->putFlash('msg', 'Utworzono nowe hasło|success');
+        } elseif (Password::validate($this->request->post('oldpass'), $user->getPassword())) {
             $user->setPassword($this->request->post('newpass'));
             $user->save();
             $this->session->putFlash('msg', 'Zaktualizowano hasło|success');
@@ -78,7 +142,7 @@ class Users extends BaseController
             $this->session->putFlash('msg', 'Nie zaktualizowano hasła!|danger');
         }
 
-        return $this->back();
+        return $this->redirectResponse('/');
     }
 
     public function banUserModal(ViewFactory $view, $id)
