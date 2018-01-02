@@ -129,13 +129,11 @@
   width: auto;
 }
 
-/* #calendar .other-month {
-  background-color: #fff;
-} */
-
-/* #calendar .other-month:hover {
-  background-color: #fff !important;
-} */
+#calendar .weekday{
+  display: none;
+  text-transform: uppercase;
+  font-size: 70%;
+}
 
 /* ============================
 				Mobile Responsiveness
@@ -165,5 +163,9 @@
   }
   #calendar .event:hover {
     width: auto;
+  }
+
+  #calendar .weekday{
+    display: inline-block;
   }
 }

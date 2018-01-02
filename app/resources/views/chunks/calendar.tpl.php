@@ -1,5 +1,6 @@
 <?php
  	$months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+  $weekdays = [ 'Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pi', 'So'];
 ?>
 <div class="panel panel-primary fresh-color  wow bounceInUp" data-wow-duration=".5s">
 	<div class="panel-heading">
@@ -17,8 +18,8 @@
 		<div id="calendar-wrap">
 			<div id="calendar">
 				<ul class="weekdays">
-					{% foreach (['Pn', 'Wt', 'Śr', 'Cz', 'Pi', 'So', 'Nd'] as $dayLabel) %}
-					<li>{{ $dayLabel }}</li>
+					{% foreach ([1,2,3,4,5,6,0] as $dayLabel) %}
+					<li>{{ $weekdays[$dayLabel] }}</li>
 					{% endforeach %}
 				</ul>
 
@@ -26,13 +27,15 @@
 					{% foreach ($calendar->get() as $year) %}
 						{% foreach ($year['months'] as $month) %}
 							{% foreach ($month['weeks'] as $week) %}
-					 			{% foreach (array(1,2,3,4,5,6,0) as $weekday) %}
+					 			{% foreach ([1,2,3,4,5,6,0] as $weekday) %}
 					 				{% foreach ($week['days'] as $day) %}
 					 					{% if ($day['weekday'] == $weekday) %}
 											<li class="{{ $month['value'] != $calendar->month()?'other-month':'' }}
                                 {{ $weekday==0?'sunday':'' }}
-                                {{ $year['value'].'-'.$month['value'].'-'.$day['value']==date('Y-m-d')?'today':''}}">
-												<div class="label label-pill label-{{ $month['value'] != $calendar->month()?'default':'info' }} date">{{ $day['value'] }}</div>
+                                {{ date('Y-m-d',strtotime($year['value'].'-'.$month['value'].'-'.$day['value']))==date('Y-m-d')?'today':'' }}">
+
+												<div class="label label-pill label-{{ $month['value'] != $calendar->month()?'default':'info' }} date"><div class="weekday">{{ $weekdays[$weekday] }}</div> {{ $day['value'] }}</div>
+
 
 												{% foreach ($day['events'] as $event) %}
 												<div class="event {{ $event['type'] }} " style="background-color: {{ $event['order']->status->color??null }}">
