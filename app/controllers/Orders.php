@@ -114,7 +114,8 @@ class Orders extends BaseController
         $order->assign($this->request->post());
         $order->status_id = Status::where('state_id', '=', '1')->first()->id;
         $order->date = date('Y-m-d H:i:s');
-        $order->price = $this->request->post('price') ? $this->request->post('price') : null;
+        $order->qty = 0 != $this->request->post('qty') ? $this->request->post('qty') : null;
+        $order->price = 0 != $this->request->post('price') ? $this->request->post('price') : null;
         $order->deadline = $this->request->post('deadline') ? $this->request->post('deadline') : null;
         $order->user_id = $this->gatekeeper->getUser()->id;
         $order->save();
@@ -131,7 +132,8 @@ class Orders extends BaseController
     {
         $order = Order::get($id);
         $order->assign($this->request->post());
-        $order->price = $this->request->post('price') ? $this->request->post('price') : null;
+        $order->qty = 0 != $this->request->post('qty') ? $this->request->post('qty') : null;
+        $order->price = 0 != $this->request->post('price') ? $this->request->post('price') : null;
         $order->deadline = $this->request->post('deadline') ? $this->request->post('deadline') : null;
         $order->save();
 

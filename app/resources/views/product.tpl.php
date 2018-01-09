@@ -17,15 +17,15 @@
 
             <div class="panel-body">
 
-                <form class="form-horizontal" role="form" method="post" action="{{isset($product)?$urlBuilder->to("/product/$product->id"):$urlBuilder->to('/product/create')}}" data-toggle="validator">
+                <form class="form-horizontal" role="form" method="post" action="{{ isset($product)?$urlBuilder->to("/product/$product->id"):$urlBuilder->to('/product/create') }}" data-toggle="validator">
                     <input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
-                    <input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
+                    <input type="hidden" name="csrf_token" value="{{ $session->generateOneTimeToken() }}">
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label for="name" class="control-label">Nazwa</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" maxlength="128" class="form-control" id="name" name="name" placeholder="Nazwa" value='{{isset($product)?$product->name:null}}' required>
+                            <input type="text" maxlength="128" class="form-control" id="name" name="name" placeholder="Nazwa" value='{{ isset($product)?$product->name:null }}' required>
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <div class="col-sm-10">
                             <select class="ajaxselect form-control" data-ajax--url="/api/getUnits" data-dropdown-parent="" data-placeholder="Wybierz jednostkę" id="unit_id" name="unit_id" required>
                                 {% if(isset($product)) %}
-                                    <option value='{{$product->unit->id ?? null}}'>{{$product->unit->name ?? null}}</option>
+                                    <option value='{{$product->unit->id ?? null}}'>{{ $product->unit->name ?? null }}</option>
                                 {% else %}
                                     <option></option>
                                 {% endif %}
@@ -49,7 +49,7 @@
                             <label for="unitprice" class="control-label">Cena jednostkowa</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" pattern="([0-9]*[.])?[0-9]+" autocomplete="off" class="form-control" id="unitprice" name="unitprice" placeholder="Wprowadź cenę" value='{{ $product->unitprice ?? null }}' data-error="Wprowadź prawidłową wartość!">
+                            <input type="text" pattern="([0-9]*[.])?[0-9]+" autocomplete="off" class="form-control" id="unitprice" name="unitprice" placeholder="Wprowadź cenę" value='{{ isset($product->unitprice) ? (float)$product->unitprice : null }}' data-error="Wprowadź prawidłową wartość!">
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>

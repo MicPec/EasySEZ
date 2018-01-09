@@ -45,6 +45,7 @@ class Products extends BaseController
     {
         $product = new Product();
         $product->assign($this->request->post());
+        $product->unitprice = 0 != $this->request->post('unitprice') ? $this->request->post('unitprice') : null;
         $product->save();
 
         $this->session->putFlash('msg', 'Utworzono produkt "'.$product->name.'"|success');
@@ -56,7 +57,7 @@ class Products extends BaseController
     {
         $product = Product::get($id);
         $product->assign($this->request->post());
-        // $product->unit_id = $this->request->post('unit');
+        $product->unitprice = 0 != $this->request->post('unitprice') ? $this->request->post('unitprice') : null;
         $product->save();
 
         $this->session->putFlash('msg', 'Zaktualizowano produkt #'.$product->id.'|success');

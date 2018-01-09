@@ -80,8 +80,8 @@
 										<p class="fa fa-cube"></p>
 									</a>
 									{{ $order->product->name ?? null }}
-									<br/>{{ $order->qty }} {{ $order->product->unit->name ?? null }}
-									<br/>Cena: {{ $order->price }} &nbsp;
+									<br/>{{ (float)$order->qty }} {{ $order->product->unit->name ?? null }}
+									<br/>Cena: {{  $order->price ? (float)$order->price : null  }} &nbsp;
 								</td>
 								<td data-label="Notatka" class="hidden-md hidden-sm">
 									<div class="clamp">
@@ -102,8 +102,8 @@
 								</td>
 								<td class="hidden-lg hidden-xs">
 									<div class="clamp">
-										{{ $order->product->name ?? null }} {{ $order->qty }} {{ $order->product->unit->name ?? null }}
-										<br/>Cena: {{ $order->price }}
+										{{ $order->product->name ?? null }} {{ (float)$order->qty }} {{ $order->product->unit->name ?? null }}
+										<br/>Cena: {{ $order->price ? (float)$order->price : null }}
 										<br/>{{ $order->note }}</div>
 									&nbsp;
 								</td>

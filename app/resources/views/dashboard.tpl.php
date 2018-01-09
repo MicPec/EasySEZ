@@ -259,7 +259,7 @@
 								{% foreach ($bestProducts as $product) %}
 								<tr>
 									<td data-label="Produkt"><strong>{{ $product->name ?? null }}</strong>
-										<br/>({{ $product->unitprice ?? null }}zł/{{ $product->unit->name ?? null }})</td>
+										<br/>({{ (float)$product->unitprice ?? null }}zł/{{ $product->unit->name ?? null }})</td>
 									<td data-label="" class="text-right">
 										<a class="btn btn-info btn-sm" href="/orders?product={{ $product->id ?? null }}"><span class="glyphicon glyphicon-list"></span> Zlecenia <span class="badge">{{ $product->ordersCount ?? null }}</span></a>
 										<a class="btn btn-primary btn-sm" href="/products?id={{ $product->id ?? null }}"><span class="fa fa-cube"></span></a>

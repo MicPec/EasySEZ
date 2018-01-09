@@ -43,7 +43,7 @@
                             <tr>
                                 <td data-label="Nazwa">{{ $product->name }}</td>
                                 <td data-label="Jednostka">{{ $product->unit->name ?? null }}</td>
-                                <td data-label="Cena jedn.">{{ $product->unitprice}}</td>
+                                <td data-label="Cena jedn.">{{ $product->unitprice ? (float)$product->unitprice : null}}</td>
                                 <td data-label="" class="text-right">
                                     <a class="btn btn-success btn-xs" href="/orders?product={{ $product->id }}"><span class="glyphicon glyphicon-list"></span> Zlecenia <span class="badge">{{ $product->ordersCount }}</span></a>
                                     <a class="btn btn-info btn-xs" href="{{ $urlBuilder->to("/product/$product->id") }}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
