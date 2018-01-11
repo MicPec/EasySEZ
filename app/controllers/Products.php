@@ -18,12 +18,12 @@ class Products extends BaseController
     public function filter(Product $query)
     {
         // search filter
-        if ($this->request->get('s')) {
-            $query = $query->search($this->request->get('s'));
+        if ($this->request->getQuery()->get('s')) {
+            $query = $query->search($this->request->getQuery()->get('s'));
         }
         // id filter
-        if ($this->request->get('id')) {
-            $query = $query->where('id', '=', $this->request->get('id'));
+        if ($this->request->getQuery()->get('id')) {
+            $query = $query->where('id', '=', $this->request->getQuery()->get('id'));
         }
 
         return $query;
@@ -44,8 +44,8 @@ class Products extends BaseController
     public function create(ViewFactory $view)
     {
         $product = new Product();
-        $product->assign($this->request->post());
-        $product->unitprice = 0 != $this->request->post('unitprice') ? $this->request->post('unitprice') : null;
+        $product->assign($this->request->getPost()->all());
+        $product->unitprice = 0 != $this->request->getPost()->get('unitprice') ? $this->request->getPost()->get('unitprice') : null;
         $product->save();
 
         $this->session->putFlash('msg', 'Utworzono produkt "'.$product->name.'"|success');
@@ -56,8 +56,8 @@ class Products extends BaseController
     public function update(ViewFactory $view, $id)
     {
         $product = Product::get($id);
-        $product->assign($this->request->post());
-        $product->unitprice = 0 != $this->request->post('unitprice') ? $this->request->post('unitprice') : null;
+        $product->assign($this->request->getPost()->all());
+        $product->unitprice = 0 != $this->request->getPost()->get('unitprice') ? $this->request->getPost()->get('unitprice') : null;
         $product->save();
 
         $this->session->putFlash('msg', 'Zaktualizowano produkt #'.$product->id.'|success');
@@ -77,7 +77,7 @@ class Products extends BaseController
 
     public function delete(ViewFactory $view)
     {
-        $product = Product::get($this->request->post('product_id'));
+        $product = Product::get($this->request->getPost()->get('product_id'));
 
         $product->delete();
 
@@ -89,7 +89,7 @@ class Products extends BaseController
     public function select()
     {
         $items = [];
-        $product = Product::search($this->request->get('s'))->ascending('name');
+        $product = Product::search($this->request->getQuery()->get('s'))->ascending('name');
         $count = $product->all()->count();
         foreach ($product->paginate(10) as $obj) {
             $items[] = ['id' => $obj->id, 'text' => $obj->name.' ('.($obj->unit->name ?? '###').')', 'uprice' => $obj->unitprice];

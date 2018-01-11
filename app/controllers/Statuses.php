@@ -18,12 +18,12 @@ class Statuses extends BaseController
     public function filter(Status $query)
     {
         // search filter
-        if ($this->request->get('s')) {
-            $query = $query->search($this->request->get('s'));
+        if ($this->request->getQuery()->get('s')) {
+            $query = $query->search($this->request->getQuery()->get('s'));
         }
         // id filter
-        if ($this->request->get('id')) {
-            $query = $query->where('id', '=', $this->request->get('id'));
+        if ($this->request->getQuery()->get('id')) {
+            $query = $query->where('id', '=', $this->request->getQuery()->get('id'));
         }
 
         return $query;
@@ -44,8 +44,8 @@ class Statuses extends BaseController
     public function create(ViewFactory $view)
     {
         $status = new Status();
-        $status->assign($this->request->post());
-        $status->state_id = $this->request->post('state_id');
+        $status->assign($this->request->getPost()->all());
+        $status->state_id = $this->request->getPost()->get('state_id');
         $status->save();
 
         $this->session->putFlash('msg', 'Utworzono status "'.$status->name.'"|success');
@@ -56,8 +56,8 @@ class Statuses extends BaseController
     public function update(ViewFactory $view, $id)
     {
         $status = Status::get($id);
-        $status->assign($this->request->post());
-        $status->state_id = $this->request->post('state_id');
+        $status->assign($this->request->getPost()->all());
+        $status->state_id = $this->request->getPost()->get('state_id');
         $status->save();
 
         $this->session->putFlash('msg', 'Zaktualizowano status "'.$status->name.'"|success');
@@ -77,7 +77,7 @@ class Statuses extends BaseController
 
     public function delete(ViewFactory $view)
     {
-        $status = Status::get($this->request->post('status_id'));
+        $status = Status::get($this->request->getPost()->get('status_id'));
 
         $status->delete();
 
@@ -89,7 +89,7 @@ class Statuses extends BaseController
     public function select()
     {
         $items = [];
-        $status = Status::search($this->request->get('s'))->ascending('name');
+        $status = Status::search($this->request->getQuery()->get('s'))->ascending('name');
         $count = $status->all()->count();
         foreach ($status->paginate(10) as $obj) {
             $items[] = ['id' => $obj->id, 'text' => $obj->name];

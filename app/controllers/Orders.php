@@ -60,7 +60,7 @@ class Orders extends BaseController
     public function changeStatus(ViewFactory $view, $id)
     {
         $order = Order::get($id);
-        $status = Status::get($this->request->post('status'));
+        $status = Status::get($this->request->getPost()->get('status'));
         // $order->status_id = $status->id;
         $status->orders()->create($order);
         if (isset($status->state->name) && ('end' == $status->state->name)) {
@@ -69,7 +69,7 @@ class Orders extends BaseController
         $order->save();
 
         $statuslog = new StatusLog();
-        $statuslog->addLog(Order::get($id), $this->gatekeeper->getUser()->username, $this->request->post('comment') ?? null);
+        $statuslog->addLog(Order::get($id), $this->gatekeeper->getUser()->username, $this->request->getPost()->get('comment') ?? null);
 
         $this->session->putFlash('msg', 'Zmieniono status zlecenia #'.$order->id.'|success');
 
@@ -111,12 +111,12 @@ class Orders extends BaseController
     public function create(ViewFactory $view)
     {
         $order = new Order();
-        $order->assign($this->request->post());
+        $order->assign($this->request->getPost()->all());
         $order->status_id = Status::where('state_id', '=', '1')->first()->id;
         $order->date = date('Y-m-d H:i:s');
-        $order->qty = 0 != $this->request->post('qty') ? $this->request->post('qty') : null;
-        $order->price = 0 != $this->request->post('price') ? $this->request->post('price') : null;
-        $order->deadline = $this->request->post('deadline') ? $this->request->post('deadline') : null;
+        $order->qty = 0 != $this->request->getPost()->get('qty') ? $this->request->getPost()->get('qty') : null;
+        $order->price = 0 != $this->request->getPost()->get('price') ? $this->request->getPost()->get('price') : null;
+        $order->deadline = $this->request->getPost()->get('deadline') ? $this->request->getPost()->get('deadline') : null;
         $order->user_id = $this->gatekeeper->getUser()->id;
         $order->save();
 
@@ -131,10 +131,10 @@ class Orders extends BaseController
     public function update(ViewFactory $view, $id)
     {
         $order = Order::get($id);
-        $order->assign($this->request->post());
-        $order->qty = 0 != $this->request->post('qty') ? $this->request->post('qty') : null;
-        $order->price = 0 != $this->request->post('price') ? $this->request->post('price') : null;
-        $order->deadline = $this->request->post('deadline') ? $this->request->post('deadline') : null;
+        $order->assign($this->request->getPost()->all());
+        $order->qty = 0 != $this->request->getPost()->get('qty') ? $this->request->getPost()->get('qty') : null;
+        $order->price = 0 != $this->request->getPost()->get('price') ? $this->request->getPost()->get('price') : null;
+        $order->deadline = $this->request->getPost()->get('deadline') ? $this->request->getPost()->get('deadline') : null;
         $order->save();
 
         $statuslog = new StatusLog();
@@ -148,7 +148,7 @@ class Orders extends BaseController
     public function addFlag(ViewFactory $view, $id)
     {
         $order = Order::get($id);
-        $flag = $this->request->post('flag');
+        $flag = $this->request->getPost()->get('flag');
         if (!$order->flags()->get($flag)) {
             $order->flags()->link($flag);
 
@@ -161,7 +161,7 @@ class Orders extends BaseController
     public function removeFlag(ViewFactory $view, $id)
     {
         $order = Order::get($id);
-        $flag = $this->request->post('flag');
+        $flag = $this->request->getPost()->get('flag');
         if ($order->flags()->get($flag)) {
             $order->flags()->unlink($flag);
 
@@ -173,8 +173,8 @@ class Orders extends BaseController
 
     public function filter(Order $query)
     {
-        if ($this->request->get('qf')) {
-            switch ($this->request->get('qf')) {
+        if ($this->request->getQuery()->get('qf')) {
+            switch ($this->request->getQuery()->get('qf')) {
                 case 'inprogress':
                     $statuses = Arr::pluck(Status::where('state_id', '=', '2')->all()->toArray(), 'id');
                     if (empty($statuses)) {
@@ -212,44 +212,44 @@ class Orders extends BaseController
             }
         }
         // search filter
-        if ($this->request->get('s')) {
-            $query = $query->search($this->request->get('s'));
+        if ($this->request->getQuery()->get('s')) {
+            $query = $query->search($this->request->getQuery()->get('s'));
         }
         // id filter
-        if ($this->request->get('id')) {
-            $query = $query->where('id', '=', $this->request->get('id'));
+        if ($this->request->getQuery()->get('id')) {
+            $query = $query->where('id', '=', $this->request->getQuery()->get('id'));
         }
         // date filter
-        if ($this->request->get('datefrom') && $this->request->get('dateto')) {
-            $query = $query->between('date', $this->request->get('datefrom'), $this->request->get('dateto'));
+        if ($this->request->getQuery()->get('datefrom') && $this->request->getQuery()->get('dateto')) {
+            $query = $query->between('date', $this->request->getQuery()->get('datefrom'), $this->request->getQuery()->get('dateto'));
         }
         // finishdate filter
-        if ($this->request->get('fdatefrom') && $this->request->get('fdateto')) {
-            $query = $query->between('finishdate', $this->request->get('fdatefrom'), $this->request->get('fdateto'));
+        if ($this->request->getQuery()->get('fdatefrom') && $this->request->getQuery()->get('fdateto')) {
+            $query = $query->between('finishdate', $this->request->getQuery()->get('fdatefrom'), $this->request->getQuery()->get('fdateto'));
         }
         // deadline filter
-        if ($this->request->get('deadlinefrom') && $this->request->get('deadlineto')) {
-            $query = $query->between('deadline', $this->request->get('deadlinefrom'), $this->request->get('deadlineto'));
+        if ($this->request->getQuery()->get('deadlinefrom') && $this->request->getQuery()->get('deadlineto')) {
+            $query = $query->between('deadline', $this->request->getQuery()->get('deadlinefrom'), $this->request->getQuery()->get('deadlineto'));
         }
         // client filter
-        if ($this->request->get('client')) {
-            $query = $query->where('client_id', '=', $this->request->get('client'));
+        if ($this->request->getQuery()->get('client')) {
+            $query = $query->where('client_id', '=', $this->request->getQuery()->get('client'));
         }
         // user filter
-        if ($this->request->get('user')) {
-            $query = $query->where('user_id', '=', $this->request->get('user'));
+        if ($this->request->getQuery()->get('user')) {
+            $query = $query->where('user_id', '=', $this->request->getQuery()->get('user'));
         }
         // status filter
-        if ($this->request->get('status')) {
-            $query = $query->where('status_id', '=', $this->request->get('status'));
+        if ($this->request->getQuery()->get('status')) {
+            $query = $query->where('status_id', '=', $this->request->getQuery()->get('status'));
         }
         // product filter
-        if ($this->request->get('product')) {
-            $query = $query->where('product_id', '=', $this->request->get('product'));
+        if ($this->request->getQuery()->get('product')) {
+            $query = $query->where('product_id', '=', $this->request->getQuery()->get('product'));
         }
         // flags filter
-        if ($this->request->get('flag')) {
-            $query = $query->join('order_flags', 'order_id', '=', 'order.id')->where('flag_id', '=', $this->request->get('flag'));
+        if ($this->request->getQuery()->get('flag')) {
+            $query = $query->join('order_flags', 'order_id', '=', 'order.id')->where('flag_id', '=', $this->request->getQuery()->get('flag'));
         }
 
         return $query;

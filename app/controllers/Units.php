@@ -18,12 +18,12 @@ class Units extends BaseController
     public function filter(Unit $query)
     {
         // search filter
-        if ($this->request->get('s')) {
-            $query = $query->search($this->request->get('s'));
+        if ($this->request->getQuery()->get('s')) {
+            $query = $query->search($this->request->getQuery()->get('s'));
         }
         // id filter
-        if ($this->request->get('id')) {
-            $query = $query->where('id', '=', $this->request->get('id'));
+        if ($this->request->getQuery()->get('id')) {
+            $query = $query->where('id', '=', $this->request->getQuery()->get('id'));
         }
 
         return $query;
@@ -39,7 +39,7 @@ class Units extends BaseController
     public function update(ViewFactory $view, $id)
     {
         $unit = Unit::get($id);
-        $unit->assign($this->request->post());
+        $unit->assign($this->request->getPost()->all());
         $unit->save();
 
         $this->session->putFlash('msg', 'Zaktualizowano jednostkę #'.$unit->id.'|success');
@@ -55,7 +55,7 @@ class Units extends BaseController
     public function create()
     {
         $unit = new Unit();
-        $unit->assign($this->request->post());
+        $unit->assign($this->request->getPost()->all());
         $unit->save();
 
         $this->session->putFlash('msg', 'Utworzono jednostkę '.$unit->name.'|success');
@@ -75,7 +75,7 @@ class Units extends BaseController
 
     public function delete(ViewFactory $view)
     {
-        $unit = Unit::get($this->request->post('unit_id'));
+        $unit = Unit::get($this->request->getPost()->get('unit_id'));
 
         $unit->delete();
 
@@ -87,7 +87,7 @@ class Units extends BaseController
     public function select()
     {
         $items = [];
-        $unit = Unit::search($this->request->get('s'))->ascending('name');
+        $unit = Unit::search($this->request->getQuery()->get('s'))->ascending('name');
         $count = $unit->all()->count();
         foreach ($unit->paginate(10) as $obj) {
             $items[] = ['id' => $obj->id, 'text' => $obj->name];

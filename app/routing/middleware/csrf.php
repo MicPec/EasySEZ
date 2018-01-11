@@ -24,7 +24,7 @@ class csrf extends Middleware
 
     public function execute(Request $request, Response $response, Closure $next): Response
     {
-        $validator = $this->validator->create($request->post(), ['csrf_token' => ['one_time_token', 'required']]);
+        $validator = $this->validator->create($request->getPost()->all(), ['csrf_token' => ['one_time_token', 'required']]);
         if ($validator->isInvalid($err)) {
             $this->session->putFlash('msg', 'Błąd walidacji: nieprawidłowy token|danger');
 

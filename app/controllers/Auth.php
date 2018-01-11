@@ -5,7 +5,6 @@ namespace app\controllers;
 use mako\view\ViewFactory;
 use mako\gatekeeper\Authentication;
 
-// use mako\http\Request;
 
 class Auth extends BaseController
 {
@@ -16,9 +15,9 @@ class Auth extends BaseController
 
     public function login()
     {
-        $email = $this->request->post('email');
-        $password = $this->request->post('password');
-        $remember = $this->request->post('remember');
+        $email = $this->request->getPost()->get('email');
+        $password = $this->request->getPost()->get('password');
+        $remember = $this->request->getPost()->get('remember');
 
         $logged = $this->gatekeeper->login($email, $password, $remember);
         if (true === $logged) {

@@ -19,12 +19,12 @@ class Users extends BaseController
     public function filter(User $query)
     {
         // search filter
-        if ($this->request->get('s')) {
-            $query = $query->search($this->request->get('s'));
+        if ($this->request->getQuery()->get('s')) {
+            $query = $query->search($this->request->getQuery()->get('s'));
         }
         // id filter
-        if ($this->request->get('id')) {
-            $query = $query->where('id', '=', $this->request->get('id'));
+        if ($this->request->getQuery()->get('id')) {
+            $query = $query->where('id', '=', $this->request->getQuery()->get('id'));
         }
 
         return $query;
@@ -52,14 +52,14 @@ class Users extends BaseController
     public function create(ViewFactory $view)
     {
         $user = new User();
-        $user->assign($this->request->post());
+        $user->assign($this->request->getPost()->all());
         $token = $user->generateAccessToken();
         $user->save();
 
         $groups = Group::all();
         foreach ($groups as $group) {
             $group->removeUser($user);
-            if ($group->id == $this->request->post('group_id')) {
+            if ($group->id == $this->request->getPost()->get('group_id')) {
                 $group->addUser($user);
             }
         }
@@ -99,8 +99,8 @@ class Users extends BaseController
     public function update(ViewFactory $view, int $id)
     {
         $user = User::get($id);
-        $user->username = $this->request->post('username');
-        $user->email = $this->request->post('email');
+        $user->username = $this->request->getPost()->get('username');
+        $user->email = $this->request->getPost()->get('email');
         $user->save();
 
         $user = User::get($id);
@@ -108,7 +108,7 @@ class Users extends BaseController
         if ($this->gatekeeper->getUser()->isMemberOf('admin')) {
             foreach ($groups as $group) {
                 $group->removeUser($user);
-                if ($group->id == $this->request->post('group_id')) {
+                if ($group->id == $this->request->getPost()->get('group_id')) {
                     $group->addUser($user);
                 }
             }
@@ -131,11 +131,11 @@ class Users extends BaseController
         $user = User::get($id);
         if ($this->gatekeeper->getUser()->isMemberOf('admin')
         || '' == $user->getPassword()) {
-            $user->setPassword($this->request->post('newpass'));
+            $user->setPassword($this->request->getPost()->get('newpass'));
             $user->save();
             $this->session->putFlash('msg', 'Utworzono nowe hasło|success');
-        } elseif (Password::validate($this->request->post('oldpass'), $user->getPassword())) {
-            $user->setPassword($this->request->post('newpass'));
+        } elseif (Password::validate($this->request->getPost()->get('oldpass'), $user->getPassword())) {
+            $user->setPassword($this->request->getPost()->get('newpass'));
             $user->save();
             $this->session->putFlash('msg', 'Zaktualizowano hasło|success');
         } else {
@@ -167,7 +167,7 @@ class Users extends BaseController
 
     public function ban(ViewFactory $view)
     {
-        $user = User::get($this->request->post('user_id'));
+        $user = User::get($this->request->getPost()->get('user_id'));
         $user->ban();
         $user->save();
 
@@ -178,7 +178,7 @@ class Users extends BaseController
 
     public function unban(ViewFactory $view)
     {
-        $user = User::get($this->request->post('user_id'));
+        $user = User::get($this->request->getPost()->get('user_id'));
         $user->unban();
         $user->save();
 
@@ -197,7 +197,7 @@ class Users extends BaseController
     public function select()
     {
         $items = [];
-        $user = User::search($this->request->get('s'))->ascending('username');
+        $user = User::search($this->request->getQuery()->get('s'))->ascending('username');
         $count = $user->all()->count();
         foreach ($user->paginate(10) as $obj) {
             $items[] = ['id' => $obj->id, 'text' => $obj->username];

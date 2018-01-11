@@ -18,12 +18,12 @@ class Clients extends BaseController
     public function filter(Client $query)
     {
         // search filter
-        if ($this->request->get('s')) {
-            $query = $query->search($this->request->get('s'));
+        if ($this->request->getQuery()->get('s')) {
+            $query = $query->search($this->request->getQuery()->get('s'));
         }
         // id filter
-        if ($this->request->get('id')) {
-            $query = $query->where('id', '=', $this->request->get('id'));
+        if ($this->request->getQuery()->get('id')) {
+            $query = $query->where('id', '=', $this->request->getQuery()->get('id'));
         }
 
         return $query;
@@ -44,7 +44,7 @@ class Clients extends BaseController
     public function create(ViewFactory $view)
     {
         $client = new Client();
-        $client->assign($this->request->post());
+        $client->assign($this->request->getPost()->all());
         $client->save();
 
         $this->session->putFlash('msg', 'Utworzono klienta "'.$client->sname.' '.$client->fname.' ('.$client->company.')|success');
@@ -55,9 +55,9 @@ class Clients extends BaseController
     public function update(ViewFactory $view, $id)
     {
         $client = Client::get($id);
-        $client->assign($this->request->put());
+        $client->assign($this->request->getPost()->all());
         $client->save();
-        $this->session->putFlash('msg', 'Zaktualizowano dane klienta|success');
+        $this->session->putFlash('msg', "Zaktualizowano dane klienta $client->sname|success");
 
         return $this->back();
     }
@@ -66,7 +66,7 @@ class Clients extends BaseController
     {
         $client = Client::get($id);
 
-        return $view->assign('question', 'Czy chcesz usunąć klienta "'.$client->sname.' '.$client->fname.'"?')->
+        return $view->assign('question', "Czy chcesz usunąć klienta $client->sname $client->fname?")->
             assign('action', '/client/delete')->
             assign('data', ['client_id' => $client->id])->
             render('chunks.confirmModal');
@@ -74,7 +74,7 @@ class Clients extends BaseController
 
     public function delete(ViewFactory $view)
     {
-        $client = Client::get($this->request->post('client_id'));
+        $client = Client::get($this->request->getPost()->get('client_id'));
 
         $client->delete();
 
@@ -86,7 +86,7 @@ class Clients extends BaseController
     public function select()
     {
         $items = [];
-        $clients = Client::search($this->request->get('s'))->ascending('sname', 'name');
+        $clients = Client::search($this->request->getQuery()->get('s'))->ascending('sname', 'name');
         $count = $clients->all()->count();
         foreach ($clients->paginate(10) as $obj) {
             $items[] = ['id' => $obj->id, 'text' => $obj->sname.' '.$obj->fname.' ('.$obj->company.')'];

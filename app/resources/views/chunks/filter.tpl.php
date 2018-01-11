@@ -1,7 +1,7 @@
 <div class="form-group">
     <button class="btn btn-xs btn-link" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapseExample">
         <span class="glyphicon glyphicon-filter"></span>Filtr</button>
-        {%if ($request->get() != [] && array_diff_key($request->get(), ['page'=>'']) )%}
+        {%if ($request->getQuery() != null && $request->getQuery()->blacklisted(['page']) != null  )%}
         <a href="{{$urlBuilder->to('/orders')}}">
             <div class="label label-danger label-pill">
                 Aktywny <span class="fa fa-times"></span>

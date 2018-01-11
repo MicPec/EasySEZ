@@ -29,7 +29,7 @@ class setLinkBack extends Middleware
                     $this->session->put('lastPage', $this->session->get('currentPage'));
                 }
             }
-            $this->session->put('currentPage', ['path' => $request->path(), 'data' => $request->data()]);
+            $this->session->put('currentPage', ['path' => $request->path(), 'data' => $request->getQuery()->all()]);
         }
 
         return $next($request, $response);

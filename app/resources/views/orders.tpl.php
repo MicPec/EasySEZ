@@ -10,9 +10,9 @@
 		<div class="panel panel-primary fresh-color wow bounceInUp" data-wow-duration=".5s">
 			<div class="panel-heading">
 				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-8 searchbox">
-					<form class="form form-horizontal" role='search' method="get" data-toggle="validator" action="{{$urlBuilder->to('/orders')}}">
+					<form class="form form-horizontal" role='search' method="get" data-toggle="validator" action="{{ $urlBuilder->to('/orders') }}">
 						<div class="input-group">
-							<input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{$request->get('s')}}" required="required" />
+							<input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ $request->getQuery()->get('s') }}" required="required" />
 							<div class="input-group-btn">
 								<button class="btn btn-info">
 									<span class="glyphicon glyphicon-search"></span>
@@ -23,7 +23,7 @@
 
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-default btn-xs" href="{{$urlBuilder->to('/order/create')}}">
+					<a class="btn btn-default btn-xs" href="{{ $urlBuilder->to('/order/create') }}">
 						<p class="glyphicon glyphicon-new-window"></p>Nowy</a>
 				</div>
 				<div class="clearfix"></div>
