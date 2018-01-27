@@ -65,6 +65,13 @@ $(function() {
     $('#modal').modal();
   });
 
+  $('.noteModal').on('click', function(e) {
+    var button = $(e.currentTarget); // Button that triggered the modal
+    var order = button.data('order'); // Extract info from data-* attributes
+    var modal = $('.modal-content').load('/api/getNoteModal/' + order);
+    $('#modal').modal();
+  });
+
   $('.confirm').on('click', function(e) {
     var button = $(e.currentTarget); // Button that triggered the modal
     var link = button.data('link') + '/' + button.data('val1');

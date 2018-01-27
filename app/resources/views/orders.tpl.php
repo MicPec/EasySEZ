@@ -77,13 +77,16 @@
 								</td>
 								<td data-label="Zamówienie" class="hidden-md hidden-sm ellipsis">
 									<a class="btn btn-xs btn-link pull-right" title="Zobacz produkt" href="{{ url()->to('/products', ['id'=>$order->product->id ?? null ]) }}">
-										<p class="fa fa-cube"></p>
+										<i class="fa fa-cube"></i>
 									</a>
 									{{ $order->product->name ?? null }}
 									<br/>{{ (float)$order->qty }} {{ $order->product->unit->name ?? null }}
 									<br/>Cena: {{  $order->price ? (float)$order->price : null  }} &nbsp;
 								</td>
 								<td data-label="Notatka" class="hidden-md hidden-sm">
+									 <a class="btn btn-link btn-xs pull-right noteModal" id="noteModal" data-order="{{ $order->id }}" data-toggle="tooltip" title="Zobacz notatkę">
+										 <p class="fa fa-sticky-note"></p>
+									 </a>
 									<div class="clamp">
 										<p>{{ $order->note }}</p>
 										&nbsp;
@@ -101,6 +104,9 @@
 									{% endforeach %} &nbsp;
 								</td>
 								<td class="hidden-lg hidden-xs">
+									<a class="btn btn-link btn-xs pull-right noteModal" id="noteModal" data-order="{{ $order->id }}" data-toggle="tooltip" title="Zobacz notatkę">
+										<p class="fa fa-sticky-note"></p>
+									</a>
 									<div class="clamp">
 										{{ $order->product->name ?? null }} {{ (float)$order->qty }} {{ $order->product->unit->name ?? null }}
 										<br/>Cena: {{ $order->price ? (float)$order->price : null }}
@@ -108,7 +114,7 @@
 									&nbsp;
 								</td>
 								<td>
-									<a class="btn btn-info btn-xs statusModal" id="statusModal" style="width: 100%" data-order="{{ $order->id }}" data-status="{{ $order->status->id??null }}" data-toggle="tooltip" title="Zmień status">{{ $order->status->name??'###' }}</a>
+									<a class="btn btn-info btn-xs statusModal" id="statusModal" style="width: 100%" data-order="{{ $order->id }}" data-status="{{ $order->status->id ?? null }}" data-toggle="tooltip" title="Zmień status">{{ $order->status->name ?? '###' }}</a>
 								</td>
 								<td class="text-right" style="min-width:100px;">
 									<a class="btn btn-default btn-xs" title="Hitoria zlecenia" href="{{url()->to("/order/$order->id/statuslog")}}"><span class="glyphicon glyphicon-th-list"></span></a>

@@ -15,6 +15,7 @@
         <div class="form-group"><label for="comment">Komentarz</label>
           <input type="text" maxlength="255" class="form-control" id="comment" name="comment" placeholder="Opcjonalny komentarz"/>
         </div>
+      </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>

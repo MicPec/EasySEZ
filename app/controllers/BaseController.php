@@ -6,7 +6,6 @@ use mako\http\routing\Controller;
 
 class BaseController extends Controller
 {
-
     public function back()
     {
         $route = $this->session->get('lastPage') ?? ['path' => '/', 'data' => []];

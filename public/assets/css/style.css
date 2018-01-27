@@ -101,6 +101,12 @@ thead {
     margin: 0px;
 }
 
+.modal-header{
+  color:#fff;
+ border-bottom:1px solid #eee;
+ background-color: #22A7F0;
+}
+
 .ellipsis {
     max-width: 250px;
     /*min-width: 100px;*/
@@ -808,8 +814,11 @@ a:hover {
     .app-container.expanded .side-body {
         margin-left: 10px;
     }
+    .app-container .app-footer {
+        left: 25px;
+    }
     .app-container .app-footer .wrapper, .app-container.expanded .app-footer .wrapper {
-        padding-left: 25px;
+        padding-left: 0;
     }
 }
 

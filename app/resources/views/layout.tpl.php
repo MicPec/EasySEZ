@@ -27,13 +27,8 @@
 
 				<footer class="app-footer">
 					<div class="wrapper">
-						<span class="pull-right">{{ APP_NAME }}
-							{{ APP_VERSION }}
-							<a href="#">
-								<i class="fa fa-long-arrow-up"></i>
-							</a>
-						</span>
-						© 2016 -  {{ date('Y') }} <a href="mailto:michal.pecyna@gmail.com">Michał Pecyna</a>
+						<span class="pull-left">© 2016 -  {{ date('Y') }} <a href="mailto:michal.pecyna@gmail.com">Michał Pecyna</a></span>
+						<span class="pull-right">{{ APP_NAME }} {{ APP_VERSION }}<a href="#"><i class="fa fa-long-arrow-up"></i></a></span>
 					</div>
 				</footer>
 			</div>

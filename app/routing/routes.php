@@ -90,4 +90,5 @@ $routes->group(['prefix' => '/api', 'namespace' => 'app\controllers', 'middlewar
     $routes->get('/unitDeleteModal/{id}', 'Units::unitDeleteModal')->patterns(['id' => '[0-9]+']);
     $routes->get('/productDeleteModal/{id}', 'Products::productDeleteModal')->patterns(['id' => '[0-9]+']);
     $routes->get('/clientDeleteModal/{id}', 'Clients::clientDeleteModal')->patterns(['id' => '[0-9]+']);
+    $routes->get('/getNoteModal/{id}', 'Orders::getNoteModal')->patterns(['id' => '[0-9]+']);
 });

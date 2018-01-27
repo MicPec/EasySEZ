@@ -40,6 +40,13 @@ class Orders extends BaseController
         return $view->assign('order', $order)->render('chunks.statusModal');
     }
 
+    public function getNoteModal(ViewFactory $view, $id)
+    {
+        $order = Order::get($id);
+
+        return $view->assign('order', $order)->render('chunks.noteModal');
+    }
+
     public function getAddFlagModal(ViewFactory $view, $id)
     {
         $order = Order::get($id);
