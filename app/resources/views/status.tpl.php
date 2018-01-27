@@ -17,9 +17,9 @@
 
             <div class="panel-body">
 
-                <form class="form-horizontal" role="form" method="post" action="{{isset($status)?$urlBuilder->to("/status/$status->id"):$urlBuilder->to('/status/create')}}" data-toggle="validator">
+                <form class="form-horizontal" role="form" method="post" action="{{isset($status)?url()->to("/status/$status->id"):url()->to('/status/create')}}" data-toggle="validator">
                     <input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
-                    <input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
+                    <input type="hidden" name="csrf_token" value="{{one_time_token()}}">
                     <div class="form-group">
                         <div class="col-sm-2">
                             <label for="name" class="control-label">Nazwa</label>

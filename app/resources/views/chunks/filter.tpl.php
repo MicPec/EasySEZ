@@ -1,8 +1,8 @@
 <div class="form-group">
     <button class="btn btn-xs btn-link" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapseExample">
         <span class="glyphicon glyphicon-filter"></span>Filtr</button>
-        {%if ($request->getQuery() != null && $request->getQuery()->blacklisted(['page']) != null  )%}
-        <a href="{{$urlBuilder->to('/orders')}}">
+        {%if (request()->getQuery() != null && request()->getQuery()->blacklisted(['page']) != null  )%}
+        <a href="{{url()->to('/orders')}}">
             <div class="label label-danger label-pill">
                 Aktywny <span class="fa fa-times"></span>
             </div>
@@ -11,7 +11,7 @@
     <div class="collapse" id="collapse">
         <div class="well">
 
-            <form class="form-horizontal" name="filter_orders" action="{{$urlBuilder->to('/orders')}}" data-toggle="validator">
+            <form class="form-horizontal" name="filter_orders" action="{{url()->to('/orders')}}" data-toggle="validator">
 
                 <div class="form-group col-md-6">
                     <label class="control-label col-md-4" for="client">Klient</label>

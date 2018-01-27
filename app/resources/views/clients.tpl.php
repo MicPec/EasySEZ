@@ -10,9 +10,9 @@
             <div class="panel-heading">
 
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-8 searchbox">
-                    <form class="form form-horizontal" role='search' method="get" data-toggle="validator" action="{{ $urlBuilder->to('/clients') }}">
+                    <form class="form form-horizontal" role='search' method="get" data-toggle="validator" action="{{ url()->to('/clients') }}">
                         <div class="input-group">
-                            <input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ $request->getQuery()->get('s') }}" required/>
+                            <input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ request()->getQuery()->get('s') }}" required/>
                             <div class="input-group-btn">
                                 <button class="btn btn-info">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -63,8 +63,8 @@
                                     <td class="hidden-md hidden-sm ellipsis" data-label="E-mail"><a href="mailto:{{ $client->email ?? null }}">{{ $client->email ?? null }} &nbsp;</a></td>
                                     <td class="hidden-md hidden-sm ellipsis" data-label="Strona www"><a href="{{ $client->website ?? null }}" target="_blank">{{ $client->website ?? null }} &nbsp;</a></td>
                                     <td data-label="" class="text-right">
-                                        <a class="btn btn-success btn-xs" href="{{ $urlBuilder->to('/orders', ['client'=>$client->id ?? null]) }}"><span class="glyphicon glyphicon-list"></span> Zlecenia <span class="badge">{{$client->ordersCount}}</span></a>
-                                        <a class="btn btn-info btn-xs" href="{{ $urlBuilder->to('/client/'.$client->id ?? null) }}"><span class="glyphicon glyphicon-edit" alt="Edytuj" data-toggle="tooltip" title="Edytuj"></span></a>
+                                        <a class="btn btn-success btn-xs" href="{{ url()->to('/orders', ['client'=>$client->id ?? null]) }}"><span class="glyphicon glyphicon-list"></span> Zlecenia <span class="badge">{{$client->ordersCount}}</span></a>
+                                        <a class="btn btn-info btn-xs" href="{{ url()->to('/client/'.$client->id ?? null) }}"><span class="glyphicon glyphicon-edit" alt="Edytuj" data-toggle="tooltip" title="Edytuj"></span></a>
                                         <a class="confirm btn btn-danger btn-xs" href="#" data-val1="{{ $client->id ?? null }}" data-link="/api/clientDeleteModal" data-toggle="tooltip" title="Usuń"><span class="fa fa-times"></span></a>
                                     </td>
                                 </tr>

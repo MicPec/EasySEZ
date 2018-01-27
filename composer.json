@@ -21,7 +21,8 @@
 		"php": ">=7.0.0",
 		"mako/framework": "dev-master",
 		"mako/repl": "dev-master",
-		"mako/toolbar": "dev-master"
+		"mako/toolbar": "dev-master",
+		"mako/helpers": "^1.0@dev"
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,

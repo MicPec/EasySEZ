@@ -10,9 +10,9 @@
             <div class="panel-heading">
 
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-8 searchbox">
-                    <form class="form form-horizontal" role='search' method="get" data-toggle="validator" action=""{{ $urlBuilder->to('/products') }}">
+                    <form class="form form-horizontal" role='search' method="get" data-toggle="validator" action=""{{ url()->to('/products') }}">
                         <div class="input-group">
-                            <input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ $request->getQuery()->get('s') }}" required/>
+                            <input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ request()->getQuery()->get('s') }}" required/>
                             <div class="input-group-btn">
                                 <button class="btn btn-info">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="pull-right">
-                    <a class="btn btn-default btn-xs" href="{{ $urlBuilder->to('/product/create') }}">
+                    <a class="btn btn-default btn-xs" href="{{ url()->to('/product/create') }}">
                         <p class="glyphicon glyphicon-new-window"></p> Nowy</a>
                 </div>
                 <div class="clearfix"></div>
@@ -46,7 +46,7 @@
                                 <td data-label="Cena jedn.">{{ $product->unitprice ? (float)$product->unitprice : null}}</td>
                                 <td data-label="" class="text-right">
                                     <a class="btn btn-success btn-xs" href="/orders?product={{ $product->id }}"><span class="glyphicon glyphicon-list"></span> Zlecenia <span class="badge">{{ $product->ordersCount }}</span></a>
-                                    <a class="btn btn-info btn-xs" href="{{ $urlBuilder->to("/product/$product->id") }}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <a class="btn btn-info btn-xs" href="{{ url()->to("/product/$product->id") }}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
                                     <a class="confirm btn btn-danger btn-xs" href="#" data-val1="{{ $product->id }}" data-link="/api/productDeleteModal" data-toggle="tooltip" title="Usuń"><span class="fa fa-times"></span></a>
                                 </td>
                             </tr>

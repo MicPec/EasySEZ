@@ -4,7 +4,7 @@
 </div>
 <form method="POST" role="dialog" action="/order/{{$order->id}}/addflag">
     <div class="modal-body">
-        <input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
+        <input type="hidden" name="csrf_token" value="{{one_time_token()}}">
         <select class="ajaxselect form-control" data--minimumResultsForSearch="10" data-ajax--url="/api/getFlags" type="text" name="flag" id="flag" data-placeholder="Dodaj flagę" required>
             <option></option>
         </select>

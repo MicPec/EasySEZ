@@ -119,7 +119,7 @@
                                 <i class="fa fa-cogs fa-fw"></i> W trakcie realizacji
                                 <span class="pull-right text-muted"><em class="label label-warning label-pill">{{ $inprogressCount }}</em></span>
                             </a>
-							<a href="/orders?user={{$gatekeeper->getUser()->id}}" class="list-group-item">
+							<a href="/orders?user={{user()->id}}" class="list-group-item">
                                 <i class="fa fa-inbox fa-fw"></i> Przyjęte przez Ciebie
                                 <span class="pull-right text-muted"><em class="label label-primary label-pill">{{ $ordersByYou }}</em></span>
                             </a>

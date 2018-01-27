@@ -9,7 +9,7 @@
         <div class="panel panel-primary fresh-color wow bounceInUp" data-wow-duration=".5s">
             <div class="panel-heading">
                 <div class="pull-right">
-                    <a class="btn btn-default btn-xs" href="{{$urlBuilder->to('/unit/create')}}">
+                    <a class="btn btn-default btn-xs" href="{{url()->to('/unit/create')}}">
                         <p class="glyphicon glyphicon-new-window"></p> Nowa</a>
                     </div>
                     <div class="clearfix"></div>
@@ -26,7 +26,7 @@
                             {% foreach ($units as $unit) %}
                                 <tr>
                                     <td data-label="Jednostka">{{ $unit->name }}</td>
-                                    <td data-label="" class="text-right"><a class="btn btn-info btn-xs" href="{{ $urlBuilder->to("/unit/$unit->id") }}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
+                                    <td data-label="" class="text-right"><a class="btn btn-info btn-xs" href="{{ url()->to("/unit/$unit->id") }}" data-toggle="tooltip" title="Edytuj"><span class="glyphicon glyphicon-edit"></span></a>
                                       <a class="confirm btn btn-danger btn-xs" href="#" data-val1="{{ $unit->id }}" data-link="/api/unitDeleteModal" data-toggle="tooltip" title="Usuń"><span class="fa fa-times"></span></a>
                                     </td>
                                 </tr>

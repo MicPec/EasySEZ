@@ -6,9 +6,9 @@
 	<div class="panel-heading">
 		<h4 class=" pull-left text-capitalize"><span class="fa fa-calendar fa-fw"></span> {{ $months[$calendar->month()-1] }} {{ $calendar->year() }}</h4>
 		<div class="btn-group pull pull-right" role="group" aria-label="...">
-			<a class="btn btn-default fresh-color btn-sm" role="button" href="{{preserve:$urlBuilder->to('/calendar', $calendar->previous()) }}"><span class="fa fa-chevron-left"> </span></a>
-			<a class="btn btn-default fresh-color btn-sm" role="button" href="{{preserve:$urlBuilder->to('/calendar', $calendar->today()) }}"><span class="fa fa-calendar-check-o"> </span></a>
-			<a class="btn btn-default fresh-color btn-sm" role="button" href="{{preserve:$urlBuilder->to('/calendar', $calendar->next()) }}"><span class="fa fa-chevron-right"> </span></a>
+			<a class="btn btn-default fresh-color btn-sm" role="button" href="{{preserve:url()->to('/calendar', $calendar->previous()) }}"><span class="fa fa-chevron-left"> </span></a>
+			<a class="btn btn-default fresh-color btn-sm" role="button" href="{{preserve:url()->to('/calendar', $calendar->today()) }}"><span class="fa fa-calendar-check-o"> </span></a>
+			<a class="btn btn-default fresh-color btn-sm" role="button" href="{{preserve:url()->to('/calendar', $calendar->next()) }}"><span class="fa fa-chevron-right"> </span></a>
 		</div>
 		<div class="clearfix"></div>
 	</div>
@@ -39,7 +39,7 @@
 
 												{% foreach ($day['events'] as $event) %}
 												<div class="event {{ $event['type'] }} " style="background-color: {{ $event['order']->status->color??null }}">
-													<a href="{{ $urlBuilder->to('/orders?id='.$event['order']->id) }}">#{{ $event['order']->id }}</a>
+													<a href="{{ url()->to('/orders?id='.$event['order']->id) }}">#{{ $event['order']->id }}</a>
 													<div class="event-desc">
 														{{ $event['order']->product->name ?? null }} ({{ $event['order']->status->name ?? null }})<br>
 														{{ $event['order']->client->sname ?? null}} {{ $event['order']->client->fname ?? null }} ({{ $event['order']->client->company ?? null }})

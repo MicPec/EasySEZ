@@ -10,9 +10,9 @@
 		<div class="panel panel-primary fresh-color wow bounceInUp" data-wow-duration=".5s">
 			<div class="panel-heading">
 				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-8 searchbox">
-					<form class="form form-horizontal" role='search' method="get" data-toggle="validator" action="{{ $urlBuilder->to('/orders') }}">
+					<form class="form form-horizontal" role='search' method="get" data-toggle="validator" action="{{ url()->to('/orders') }}">
 						<div class="input-group">
-							<input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ $request->getQuery()->get('s') }}" required="required" />
+							<input type="Search" placeholder="Szukaj..." class="form-control" id="s" name="s" data-minlength="2" value="{{ request()->getQuery()->get('s') }}" required="required" />
 							<div class="input-group-btn">
 								<button class="btn btn-info">
 									<span class="glyphicon glyphicon-search"></span>
@@ -23,7 +23,7 @@
 
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-default btn-xs" href="{{ $urlBuilder->to('/order/create') }}">
+					<a class="btn btn-default btn-xs" href="{{ url()->to('/order/create') }}">
 						<p class="glyphicon glyphicon-new-window"></p>Nowy</a>
 				</div>
 				<div class="clearfix"></div>
@@ -60,7 +60,7 @@
 									<br/>{{ $order->finishdate }} {% endif %}
 								</td>
 								<td data-label="Klient" class="ellipsis">
-									<a class="btn btn-xs btn-link pull-right" title="Zobacz klienta" href="{{ $urlBuilder->to('/clients', ['id'=>$order->client->id ?? null ]) }}">
+									<a class="btn btn-xs btn-link pull-right" title="Zobacz klienta" href="{{ url()->to('/clients', ['id'=>$order->client->id ?? null ]) }}">
 										<p class="fa fa-user"></p>
 									</a>
 									{{ $order->client->sname ?? null}} {{ $order->client->fname ?? null }}<br/>
@@ -76,7 +76,7 @@
 										&nbsp;</div>
 								</td>
 								<td data-label="Zamówienie" class="hidden-md hidden-sm ellipsis">
-									<a class="btn btn-xs btn-link pull-right" title="Zobacz produkt" href="{{ $urlBuilder->to('/products', ['id'=>$order->product->id ?? null ]) }}">
+									<a class="btn btn-xs btn-link pull-right" title="Zobacz produkt" href="{{ url()->to('/products', ['id'=>$order->product->id ?? null ]) }}">
 										<p class="fa fa-cube"></p>
 									</a>
 									{{ $order->product->name ?? null }}
@@ -111,9 +111,9 @@
 									<a class="btn btn-info btn-xs statusModal" id="statusModal" style="width: 100%" data-order="{{ $order->id }}" data-status="{{ $order->status->id??null }}" data-toggle="tooltip" title="Zmień status">{{ $order->status->name??'###' }}</a>
 								</td>
 								<td class="text-right" style="min-width:100px;">
-									<a class="btn btn-default btn-xs" title="Hitoria zlecenia" href="{{$urlBuilder->to("/order/$order->id/statuslog")}}"><span class="glyphicon glyphicon-th-list"></span></a>
-									<a class="btn btn-success btn-xs" title="Drukuj podsumowanie" href="{{$urlBuilder->to("/order/$order->id/summary")}}"><span class="glyphicon glyphicon-print"></span></a>
-									<a class="btn btn-info btn-xs" title="Edytuj zlecenie" href="{{$urlBuilder->to("/order/$order->id")}}"><span class="glyphicon glyphicon-edit"></span></a>
+									<a class="btn btn-default btn-xs" title="Hitoria zlecenia" href="{{url()->to("/order/$order->id/statuslog")}}"><span class="glyphicon glyphicon-th-list"></span></a>
+									<a class="btn btn-success btn-xs" title="Drukuj podsumowanie" href="{{url()->to("/order/$order->id/summary")}}"><span class="glyphicon glyphicon-print"></span></a>
+									<a class="btn btn-info btn-xs" title="Edytuj zlecenie" href="{{url()->to("/order/$order->id")}}"><span class="glyphicon glyphicon-edit"></span></a>
 								</td>
 							</tr>
 							{% endforeach %}

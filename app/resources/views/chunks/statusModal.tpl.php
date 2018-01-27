@@ -4,7 +4,7 @@
 </div>
 <form class="modalform" method="POST" role="dialog" action="/order/{{$order->id}}/changestatus" data-toggle="validator">
     <div class="modal-body">
-        <input type="hidden" name="csrf_token" value="{{ $session->generateOneTimeToken() }}">
+        <input type="hidden" name="csrf_token" value="{{ one_time_token() }}">
         <div class="form-group">
           <div class="form-group">
             <label for="status">Status</label>

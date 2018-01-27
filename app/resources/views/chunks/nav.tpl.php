@@ -63,15 +63,15 @@
                 </ul>
             </li>
             <li class="dropdown profile">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ $gatekeeper->getUser()->username }} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ user()->username }} <span class="caret"></span></a>
                 <ul class="dropdown-menu animated fadeInDown">
                     <li class="profile-img">
                         <img src="/assets/img/user.png" class="profile-img">
                     </li>
                     <li>
                         <div class="profile-info">
-                            <h4 class="username">{{ $gatekeeper->getUser()->username }}</h4>
-                            <small>{{ $gatekeeper->getUser()->email }}</small>
+                            <h4 class="username">{{ user()->username }}</h4>
+                            <small>{{ user()->email }}</small>
                             <div class="btn-group-vertical margin-bottom-2x" role="group">
                                 <a type="button" class="btn btn-default" href="/user/profile"><i class="fa fa-user"></i> Profil</a>
                                 <a type="button" class="btn btn-default" href="/logout"><i class="fa fa-sign-out"></i> Wyloguj</a>
@@ -90,7 +90,7 @@
     <nav class="navbar navbar-default" role="navigation">
         <div class="side-menu-container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ $urlBuilder->base() }}">
+                <a class="navbar-brand" href="{{ url()->base() }}">
                     <div class="icon fa fa-cloud"></div>
                     <div class="title">{{ APP_NAME }}</div>
                 </a>
@@ -100,13 +100,13 @@
             </div>
             <ul class="nav navbar-nav">
               <li>
-                  <a href="{{ $urlBuilder->base() }}">
+                  <a href="{{ url()->base() }}">
                       <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
                   </a>
               </li>
               <!-- calendar -->
                 <li>
-                    <a href="{{ $urlBuilder->to('\calendar') }}">
+                    <a href="{{ url()->to('\calendar') }}">
                         <span class="icon fa fa-calendar"></span><span class="title">Kalendarz</span>
                     </a>
                 </li>
@@ -119,9 +119,9 @@
                     <div id="dropdown-table" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ $urlBuilder->to('\orders') }}">Zarządzaj</a>
+                                <li><a href="{{ url()->to('\orders') }}">Zarządzaj</a>
                                 </li>
-                                <li><a href="{{ $urlBuilder->to('\order\create') }}">Dodaj nowe</a>
+                                <li><a href="{{ url()->to('\order\create') }}">Dodaj nowe</a>
                                 </li>
                             </ul>
                         </div>
@@ -136,9 +136,9 @@
                     <div id="dropdown-table2" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ $urlBuilder->to('\clients') }}">Zarządzaj</a>
+                                <li><a href="{{ url()->to('\clients') }}">Zarządzaj</a>
                                 </li>
-                                <li><a href="{{ $urlBuilder->to('\client\create') }}">Nowy Klient</a>
+                                <li><a href="{{ url()->to('\client\create') }}">Nowy Klient</a>
                                 </li>
                             </ul>
                         </div>
@@ -153,9 +153,9 @@
                     <div id="dropdown-table3" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ $urlBuilder->to('\products') }}">Zarządzaj</a>
+                                <li><a href="{{ url()->to('\products') }}">Zarządzaj</a>
                                 </li>
-                                <li><a href="{{ $urlBuilder->to('\product\create') }}">Nowy Produkt</a>
+                                <li><a href="{{ url()->to('\product\create') }}">Nowy Produkt</a>
                                 </li>
                             </ul>
                         </div>
@@ -170,17 +170,17 @@
                     <div id="dropdown-table4" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ $urlBuilder->to('\units') }}"><i class="fa fa-list fa-fw"></i> Jednostki</a>
+                                <li><a href="{{ url()->to('\units') }}"><i class="fa fa-list fa-fw"></i> Jednostki</a>
                                 </li>
                                 <li>
-                                    <a href="{{ $urlBuilder->to('\statuses') }}"><i class="fa fa-sort-amount-desc fa-fw"></i> Statusy</a>
+                                    <a href="{{ url()->to('\statuses') }}"><i class="fa fa-sort-amount-desc fa-fw"></i> Statusy</a>
                                 </li>
                                 <li>
-                                    <a href="{{ $urlBuilder->to('\flags') }}"><i class="fa fa-flag fa-fw"></i> Flagi</a>
+                                    <a href="{{ url()->to('\flags') }}"><i class="fa fa-flag fa-fw"></i> Flagi</a>
                                 </li>
                                 <check if="{{@useradmin}}">
                                     <li>
-                                        <a href="{{ $urlBuilder->to('\users') }}"><i class="fa fa-user fa-fw"></i> Użytkownicy</a>
+                                        <a href="{{ url()->to('\users') }}"><i class="fa fa-user fa-fw"></i> Użytkownicy</a>
                                     </li>
                                 </check>
                             </ul>

@@ -4,7 +4,7 @@
 </div>
 <form method="POST" id="confirm" role="dialog" action="{{ $action ?? '#' }}">
 	<div class="modal-body">
-        <input type="hidden" name="csrf_token" value="{{ $session->generateOneTimeToken() }}"/>
+        <input type="hidden" name="csrf_token" value="{{ one_time_token() }}"/>
         {% foreach (($data??[]) as $key => $value) %}
         	<input type="hidden" name="{{ $key }}" value="{{ $value }}" />
         {% endforeach %}

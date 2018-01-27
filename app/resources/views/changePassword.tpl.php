@@ -13,11 +13,11 @@
 
 			<div class="panel-body">
 
-				<form class="form-horizontal" role="form" method="post" action="{{ $urlBuilder->to("/user/$user->id/changepassword") }}" data-toggle="validator">
+				<form class="form-horizontal" role="form" method="post" action="{{ url()->to("/user/$user->id/changepassword") }}" data-toggle="validator">
 					<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
-					<input type="hidden" name="csrf_token" value="{{ $session->generateOneTimeToken() }}">
+					<input type="hidden" name="csrf_token" value="{{ one_time_token() }}">
 
-					{%if (!$user->getPassword()=='' && !$gatekeeper->getUser()->isMemberOf('admin') ) %}
+					{%if (!$user->getPassword()=='' && !user()->isMemberOf('admin') ) %}
 					<div class="form-group">
 						<div class="col-sm-2">
 							<label for="oldpass" class="control-label">Stare hasło</label>

@@ -15,9 +15,9 @@
 
 			<div class="panel-body">
 
-				<form class="form-horizontal" role="form" method="post" action="{{ isset($order) ? $urlBuilder->to("/order/$order->id") : $urlBuilder->to('/order/create') }}" data-toggle="validator">
+				<form class="form-horizontal" role="form" method="post" action="{{ isset($order) ? url()->to("/order/$order->id") : url()->to('/order/create') }}" data-toggle="validator">
 					<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
-					<input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
+					<input type="hidden" name="csrf_token" value="{{one_time_token()}}">
 					<input type="hidden" name="uprice" value="{{ $order->product->unitprice ?? null }}">
 
 					<div class="col-md-6 col-sm-12">

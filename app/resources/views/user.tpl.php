@@ -13,9 +13,9 @@
 
 			<div class="panel-body">
 
-				<form class="form-horizontal" role="form" method="post" action="{{ isset($user)?$urlBuilder->to("/user/$user->id"):$urlBuilder->to('/user/create') }}" data-toggle="validator">
+				<form class="form-horizontal" role="form" method="post" action="{{ isset($user)?url()->to("/user/$user->id"):url()->to('/user/create') }}" data-toggle="validator">
 					<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="PUT">
-					<input type="hidden" name="csrf_token" value="{{$session->generateOneTimeToken()}}">
+					<input type="hidden" name="csrf_token" value="{{one_time_token()}}">
 
 					<div class="form-group">
 						<div class="col-sm-2">
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 
-					{%if ($gatekeeper->getUser()->isMemberOf('admin'))%}
+					{%if (user()->isMemberOf('admin'))%}
 					<div class="form-group">
 						<div class="col-sm-2">
 							<label for="group" class="control-label">Grupa</label>

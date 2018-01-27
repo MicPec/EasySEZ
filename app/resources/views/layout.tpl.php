@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="{{ APP_NAME }} {{ APP_VERSION }} - System Ewidencji Zleceń">
 		<meta name="author" content="michal.pecyna@gmail.com">
-		<link rel="icon" type="image/png" href="{{$urlBuilder->to('/assets/img/favicon.png')}}"/>
+		<link rel="icon" type="image/png" href="{{url()->to('/assets/img/favicon.png')}}"/>
 		{{view:'chunks.css'}}
 		<title>{{ APP_NAME }}</title>
 	</head>
