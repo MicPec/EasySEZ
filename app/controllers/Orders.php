@@ -64,6 +64,19 @@ class Orders extends BaseController
             render('chunks.confirmModal');
     }
 
+    public function getStatuslogModal(ViewFactory $view, $id)
+    {
+        $order = Order::get($id);
+
+        if (0 == $order->statusLog->count()) {
+            $this->session->putFlash('msg', 'Nie znaleziono historii zlecenia #'.$order->id.'|warning');
+
+            return $this->back();
+        }
+
+        return $view->assign('statuslog', $order->statusLog)->render('chunks.statuslogModal');
+    }
+
     public function changeStatus(ViewFactory $view, $id)
     {
         $order = Order::get($id);
@@ -88,19 +101,6 @@ class Orders extends BaseController
         $order = Order::get($id);
 
         return $view->assign('order', $order)->render('summary');
-    }
-
-    public function statusLog(ViewFactory $view, $id)
-    {
-        $order = Order::get($id);
-
-        if (0 == $order->statusLog->count()) {
-            $this->session->putFlash('msg', 'Nie znaleziono historii zlecenia #'.$order->id.'|warning');
-
-            return $this->back();
-        }
-
-        return $view->assign('statuslog', $order->statusLog)->render('statuslog');
     }
 
     public function get(ViewFactory $view, $id)
@@ -203,10 +203,10 @@ class Orders extends BaseController
                     $query = $query->where('finishdate', '>=', date('Y-m-01'));
                     break;
                 case 'thisweek':
-                    $query = $query->where('date', '>=', date('Y-m-d', strtotime('-1 week monday')));
+                    $query = $query->where('date', '>', date('Y-m-d', strtotime('last sunday')));
                     break;
                 case 'endedthisweek':
-                    $query = $query->where('finishdate', '>=', date('Y-m-d', strtotime('-1 week monday')));
+                    $query = $query->where('finishdate', '>', date('Y-m-d', strtotime('last sunday')));
                     break;
                 case 'today':
                     $query = $query->where('date', '>=', date('Y-m-d'));

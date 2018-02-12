@@ -117,7 +117,7 @@
 									<a class="btn btn-info btn-xs statusModal" id="statusModal" style="width: 100%" data-order="{{ $order->id }}" data-status="{{ $order->status->id ?? null }}" data-toggle="tooltip" title="Zmień status">{{ $order->status->name ?? '###' }}</a>
 								</td>
 								<td class="text-right" style="min-width:100px;">
-									<a class="btn btn-default btn-xs" title="Hitoria zlecenia" href="{{url()->to("/order/$order->id/statuslog")}}"><span class="glyphicon glyphicon-th-list"></span></a>
+									<a class="btn btn-default btn-xs statuslogModal"  id="statuslogModal" title="Hitoria zlecenia" data-order="{{ $order->id }}"><span class="glyphicon glyphicon-th-list"></span></a>
 									<a class="btn btn-success btn-xs" title="Drukuj podsumowanie" href="{{url()->to("/order/$order->id/summary")}}"><span class="glyphicon glyphicon-print"></span></a>
 									<a class="btn btn-info btn-xs" title="Edytuj zlecenie" href="{{url()->to("/order/$order->id")}}"><span class="glyphicon glyphicon-edit"></span></a>
 								</td>

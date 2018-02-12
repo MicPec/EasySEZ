@@ -81,7 +81,7 @@ class Dashboard extends BaseController
 
     public function getStartedThisWeek(): int
     {
-        return Order::where('date', '>=', date('Y-m-d', strtotime('-1 week monday')))->count();
+        return Order::where('date', '>', date('Y-m-d', strtotime('last sunday')))->count();
     }
 
     public function getStartedThisMonth(): int
@@ -96,7 +96,7 @@ class Dashboard extends BaseController
 
     public function getEndedThisWeek(): int
     {
-        return Order::where('finishdate', '>=', date('Y-m-d', strtotime('-1 week monday')))->count();
+        return Order::where('finishdate', '>', date('Y-m-d', strtotime('last sunday')))->count();
     }
 
     public function getEndedThisMonth(): int

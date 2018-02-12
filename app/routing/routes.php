@@ -20,7 +20,6 @@ $routes->group(['namespace' => 'app\controllers', 'middleware' => ['setLinkBack'
     $routes->post('/order/{id}/addflag', 'Orders::addFlag')->patterns(['id' => '[0-9]+'])->middleware('csrf');
     $routes->post('/order/{id}/removeflag', 'Orders::removeFlag')->patterns(['id' => '[0-9]+'])->middleware('csrf');
     $routes->get('/order/{id}/summary', 'Orders::summary')->patterns(['id' => '[0-9]+']);
-    $routes->get('/order/{id}/statuslog', 'Orders::StatusLog')->patterns(['id' => '[0-9]+']);
 
     $routes->get('/clients', 'Clients::show', 'clients');
     $routes->get('/client/create', 'Clients::new');
@@ -91,4 +90,5 @@ $routes->group(['prefix' => '/api', 'namespace' => 'app\controllers', 'middlewar
     $routes->get('/productDeleteModal/{id}', 'Products::productDeleteModal')->patterns(['id' => '[0-9]+']);
     $routes->get('/clientDeleteModal/{id}', 'Clients::clientDeleteModal')->patterns(['id' => '[0-9]+']);
     $routes->get('/getNoteModal/{id}', 'Orders::getNoteModal')->patterns(['id' => '[0-9]+']);
+    $routes->get('/getStatuslogModal/{id}', 'Orders::getStatuslogModal')->patterns(['id' => '[0-9]+']);
 });
