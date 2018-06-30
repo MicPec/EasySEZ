@@ -4,10 +4,16 @@
         {%if (request()->getQuery() != null && request()->getQuery()->blacklisted(['page']) != null  )%}
         <a href="{{url()->to('/orders')}}">
             <div class="label label-danger label-pill">
-                Aktywny <span class="fa fa-times"></span>
+                Reset <span class="fa fa-times"></span>
             </div>
         </a>
-        {%endif%}
+        {%endif%}&nbsp|
+        <a class="btn btn-xs btn-link" href="/orders?qf=new">Nowe</a>
+        <a class="btn btn-xs btn-link" href="/orders?qf=inprogress">W trakcie realizacji</a>
+        <a class="btn btn-xs btn-link" href="/orders?user={{user()->id}}">Przyjęte przez Ciebie</a>
+        <a class="btn btn-xs btn-link" href="/orders?qf=today">Przyjęte dzisiaj</a>
+        <a class="btn btn-xs btn-link" href="/orders?qf=thisweek">Przyjęte w tym tygodniu</a>
+        <a class="btn btn-xs btn-link" href="/orders?qf=thismonth">Przyjęte w tym miesiącu</a>
     <div class="collapse" id="collapse">
         <div class="well">
 

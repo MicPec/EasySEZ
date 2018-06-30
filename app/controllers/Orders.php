@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\StatusLog;
-use mako\view\ViewFactory;
+use app\models\Flag;
 use app\models\Order;
 use app\models\Status;
-use app\models\Flag;
+use app\models\StatusLog;
+
+use mako\view\ViewFactory;
+
 use mako\utility\Arr;
 
 class Orders extends BaseController
